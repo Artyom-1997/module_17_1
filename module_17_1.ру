@@ -1,0 +1,125 @@
+﻿
+/yourprojectdirectory/app/routers/__init.py
+
+/your_project_directory/app/routers/task.py
+
+from fastapi import APIRouter
+
+router = APIRouter(prefix="/task", tags=["task"])
+
+
+@router.get("/")
+async def all_tasks():
+    """Получить список всех задач"""
+    pass
+
+
+@router.get("/{task_id}")
+async def task_by_id(task_id: int):
+    """Получить задачу по ID"""
+    pass
+
+
+@router.post("/create")
+async def create_task():
+    """Создать новую задачу"""
+    pass
+
+
+@router.put("/update")
+async def update_task():
+    """Обновить существующую задачу"""
+    pass
+
+
+@router.delete("/delete")
+async def delete_task():
+    """Удалить задачу по ID"""
+    pass\
+
+/your_project_directory/app/routers/user.py
+
+    from fastapi import APIRouter
+
+router = APIRouter(prefix="/user", tags=["user"])
+
+
+@router.get("/")
+async def all_users():
+    """Получить список всех пользователей"""
+    pass
+
+
+@router.get("/{user_id}")
+async def user_by_id(user_id: int):
+    """Получить пользователя по ID"""
+    pass
+
+
+@router.post("/create")
+async def create_user():
+    """Создать нового пользователя"""
+    pass
+
+
+@router.put("/update")
+async def update_user():
+    """Обновить существующего пользователя"""
+    pass
+
+
+@router.delete("/delete")
+async def delete_user():
+    """Удалить пользователя по ID"""
+    pass
+
+/your_project_directory/app/main.py
+
+from fastapi import FastAPI
+from app.routers.task import router as task_router
+from app.routers.user import router as user_router
+
+app = FastAPI()
+
+
+@app.get("/")
+async def welcome():
+    """Добро пожаловать в Taskmanager"""
+    return {"message": "Welcome to Taskmanager"}
+
+# Подключение маршрутов
+app.include_router(task_router)
+app.include_router(user_router)
+
+/your_project_directory/app/schemas.py
+
+from pydantic import BaseModel
+
+
+class CreateUser(BaseModel):
+    """Схема для создания пользователя"""
+    username: str
+    firstname: str
+    lastname: str
+    age: int
+
+
+class UpdateUser(BaseModel):
+    """Схема для обновления пользователя"""
+    firstname: str
+    lastname: str
+    age: int
+
+
+class CreateTask(BaseModel):
+    """Схема для создания задачи"""
+    title: str
+    content: str
+    priority: int
+
+
+class UpdateTask(BaseModel):
+    """Схема для обновления задачи"""
+    title: str
+    content: str
+    priority: int
